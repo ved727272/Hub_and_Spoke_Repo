@@ -17,6 +17,27 @@ stages:
             displayName: terraform install
             inputs:
               terraformVersion: 'latest'
+      - job: tfsecurityscan
+        displayName: Security & Lint Scan
+        continueOnError: true
+        steps: 
+          - task: tfsec@1
+            displayName: tf_sec
+            inputs:
+              version: 'v1.26.0'
+          - task: Bash@3
+            continueOnError: true
+            displayName: tflint
+            inputs:
+              targetType: 'inline'
+              script: |
+                curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+                tflint
+              workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+    
+
+
+
             
             
    
