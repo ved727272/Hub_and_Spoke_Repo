@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: newpool
+
+stages:
+  - stage: precheck
+    displayName: precheck
+    jobs:
+      - job: terraforminstall
+        displayName: terraform install
+        steps:
+          - task: TerraformInstaller@1
+            displayName: terraform install
+            inputs:
+              terraformVersion: 'latest'
+            
+            
+   
