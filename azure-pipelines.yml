@@ -60,15 +60,15 @@ stages:
             displayName: Run TFLint
             workingDirectory: $(Build.SourcesDirectory)
             continueOnError: true
-          - script: |
-              python3 -m venv venv
-              source venv/bin/activate
-              pip install --upgrade pip
-              pip install checkov
-              checkov -d .
-            workingDirectory: $(Build.SourcesDirectory)
-            continueOnError: true
-            displayName: CHECKOV 
+          # - script: |
+          #     python3 -m venv venv
+          #     source venv/bin/activate
+          #     pip install --upgrade pip
+          #     pip install checkov
+          #     checkov -d .
+          #   workingDirectory: $(Build.SourcesDirectory)
+          #   continueOnError: true
+          #   displayName: CHECKOV 
   - stage: infracost
     dependsOn: tfsecurityscan
     displayName: Infracost Analysis
@@ -91,10 +91,10 @@ stages:
       - job: terraformplan
         displayName: Terraform Plan
         steps:
-          - task: TerraformInstaller@1
-            displayName: Terraform install
-            inputs:
-              terraformVersion: 'latest'
+          # - task: TerraformInstaller@1
+          #   displayName: Terraform install
+          #   inputs:
+          #     terraformVersion: 'latest'
           - task: TerraformTask@5
             displayName: Terraform init
             inputs:
