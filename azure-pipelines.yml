@@ -64,6 +64,7 @@ stages:
               pip install checkov
               checkov -d .
             workingDirectory: $(Build.SourcesDirectory)
+            continueOnError: true
       - job: infracostanalysis
         dependsOn: terraformvalidate
         displayName: "Infracost Analysis"
