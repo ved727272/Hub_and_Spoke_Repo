@@ -25,6 +25,7 @@ stages:
             displayName: tf_sec
             inputs:
               version: 'v1.26.0'
+              dir: '$(System.DefaultWorkingDirectory)/environments/dev'
           - task: Bash@3
             continueOnError: true
             displayName: tflint
