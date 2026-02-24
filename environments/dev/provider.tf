@@ -5,20 +5,20 @@ terraform {
       version = "4.60.0"
     }
   }
-  # backend "azurerm" {
-  #   resource_group_name  = "backend-rg"
-  #   storage_account_name = "backendstg12354"
-  #   container_name       = "my-container"
-  #   key        = "hub.tfstate"
-
-  # }
   backend "azurerm" {
-    resource_group_name  = "dont-delete"
-    storage_account_name = "dontdeletepls"
+    resource_group_name  = "backend-rg"
+    storage_account_name = "backendstg12354"
     container_name       = "my-container"
-    key                  = "tfstate"
+    key        = "raman-tfstate"
 
   }
+  # backend "azurerm" {
+  #   resource_group_name  = "dont-delete"
+  #   storage_account_name = "dontdeletepls"
+  #   container_name       = "my-container"
+  #   key                  = "tfstate"
+
+  # }
 }
 
 provider "azurerm" {
