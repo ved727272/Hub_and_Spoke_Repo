@@ -27,15 +27,21 @@ stages:
             inputs:
               version: 'v1.26.0'
               dir: '$(Build.SourcesDirectory)/environments/dev'
-          - task: Bash@3
-            continueOnError: true
-            displayName: tflint
-            inputs:
-              targetType: 'inline'
-              script: |
-                curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-                tflint
-              workingDirectory: '$(Build.SourcesDirectory)/environments/dev'
+          # - task: Bash@3
+          #   continueOnError: true
+          #   displayName: tflint
+          #   inputs:
+          #     targetType: 'inline'
+          #     script: |
+          #       curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+          #       tflint
+          #     workingDirectory: '$(Build.SourcesDirectory)/environments/dev'
+          - script: |
+              terraform init -backend=false
+              tflint --init
+              tflint --recursive
+            displayName: Run TFLint
+            workingDirectory: $(Build.SourcesDirectory)
 
 
 
