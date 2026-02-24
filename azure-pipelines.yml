@@ -26,7 +26,7 @@ stages:
             displayName: tf_sec
             inputs:
               version: 'v1.26.0'
-              dir: '$(Build.SourcesDirectory)/*'
+              dir: '$(Build.SourcesDirectory)/**'
           - task: Bash@3
             continueOnError: true
             displayName: tflint
@@ -35,7 +35,7 @@ stages:
               script: |
                 curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
                 tflint
-              workingDirectory: '$(Build.SourcesDirectory)/*'
+              workingDirectory: '$(Build.SourcesDirectory)/**'
 
 
 
