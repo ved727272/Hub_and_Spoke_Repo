@@ -8,17 +8,36 @@ pool:
 
 stages:
   - stage: precheck
-    displayName: precheck
+    displayName: "Terraform Validation"
     jobs:
-      - job: terraforminstall
-        displayName: terraform install
+      - job: terraformvalidate
+        displayName: "Format & Validate"
         steps:
           - task: TerraformInstaller@1
             displayName: terraform install
             inputs:
               terraformVersion: 'latest'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'application-svc'
+              backendAzureRmStorageAccountName: 'backendstg12354'
+              backendAzureRmContainerName: 'my-container'
+              backendAzureRmKey: 'raman-tfstate'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'custom'
+              outputTo: 'console'
+              customCommand: 'fmt'
+              environmentServiceNameAzureRM: 'application-svc'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
       - job: tfsecurityscan
-        dependsOn: terraforminstall
+        dependsOn: terraformvalidate
         displayName: Security & Lint Scan
         continueOnError: true
         steps: 
@@ -27,15 +46,7 @@ stages:
             inputs:
               version: 'v1.26.0'
               dir: '$(Build.SourcesDirectory)/environments/dev'
-          # - task: Bash@3
-          #   continueOnError: true
-          #   displayName: tflint
-          #   inputs:
-          #     targetType: 'inline'
-          #     script: |
-          #       curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-          #       tflint
-          #     workingDirectory: '$(Build.SourcesDirectory)/environments/dev'
+
           - script: |
               terraform init -backend=false
               tflint --init
@@ -43,6 +54,19 @@ stages:
             displayName: Run TFLint
             workingDirectory: $(Build.SourcesDirectory)
             continueOnError: true
+          - script: |
+              pip install checkov
+              checkov -d .
+            workingDirectory: $(Build.SourcesDirectory)
+      - job: infracostanalysis
+        dependsOn: terraformvalidate
+        displayName: "Infracost Analysis"
+        steps:
+          - script: |
+              curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+              infracost breakdown --path .
+            workingDirectory: $(Build.SourcesDirectory)      
+      
 
 
 
