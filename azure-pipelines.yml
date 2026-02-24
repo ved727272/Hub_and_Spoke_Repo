@@ -39,8 +39,11 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'validate'
+  - stage: tfsecurityscan
+    dependsOn: precheck
+    displayName: Security & Lint Scan
+    jobs:           
       - job: tfsecurityscan
-        dependsOn: terraformvalidate
         displayName: Security & Lint Scan
         continueOnError: true
         steps: 
@@ -66,8 +69,11 @@ stages:
             workingDirectory: $(Build.SourcesDirectory)
             continueOnError: true
             displayName: CHECKOV 
+  - stage: infracost
+    dependsOn: tfsecurityscan
+    displayName: Infracost Analysis
+    jobs:       
       - job: infracostanalysis
-        dependsOn: tfsecurityscan
         displayName: "Infracost Analysis"
         steps:
           - script: |
@@ -78,6 +84,8 @@ stages:
             env:
               INFRACOST_API_KEY: 'ico-ofRGrUGe9ncyiu9H0xRdqMsjihpJoXBl'
   - stage: terraformplan
+    displayName: Terraform Plan
+    dependsOn: infracost
     jobs:
       - job: terraformplan
         displayName: Terraform Plan
