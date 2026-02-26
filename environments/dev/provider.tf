@@ -30,6 +30,6 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = true
     }
   }
-  # subscription_id = "89ea6cde-b718-4376-9ae5-97e5654340e8"
-  subscription_id = "a952c7be-2375-401d-b046-6b79e69b7bf9"
+  subscription_id = "89ea6cde-b718-4376-9ae5-97e5654340e8"
+  # subscription_id = "a952c7be-2375-401d-b046-6b79e69b7bf9"
 }
