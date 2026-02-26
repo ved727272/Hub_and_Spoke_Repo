@@ -21,5 +21,5 @@ data "azurerm_network_interface" "nic_id" {
 data "azurerm_monitor_data_collection_rule" "vm_dcrd" {
   for_each = var.vms
   name                = "data_collection_rule"
-  resource_group_name = "dev-todo-rg"
+  resource_group_name = "dev-todoapp-rg-ci"
 }

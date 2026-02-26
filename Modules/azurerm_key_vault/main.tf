@@ -19,7 +19,6 @@
   }
 
     resource "azurerm_role_assignment" "kv_access" {
-      depends_on = [ azurerm_key_vault.kv ]
     for_each = var.keyvault
     scope                = azurerm_key_vault.kv[each.key].id
     role_definition_name = "Key Vault Secrets Officer"
