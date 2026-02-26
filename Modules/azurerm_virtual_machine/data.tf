@@ -23,3 +23,5 @@ data "azurerm_monitor_data_collection_rule" "vm_dcrd" {
   name                = "data_collection_rule"
   resource_group_name = "dev-todoapp-rg-ci"
 }
+
+
