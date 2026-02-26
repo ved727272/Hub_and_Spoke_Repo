@@ -113,6 +113,7 @@ stages:
               command: 'plan'
               workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
               environmentServiceNameAzureRM: 'application-svc'
+              commandOptions: '-var-file=terraform.tfvars -input=false -lock-timeout=300s'
   - stage: manualvalidation
     dependsOn: terraformplan
     displayName: Manual Validation
