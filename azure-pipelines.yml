@@ -124,12 +124,41 @@ stages:
         steps:
           - task: ManualValidation@1
             inputs:
-              notifyUsers: 'brijesh.zte@gmail.com'
-              approvers: 'brijesh'
-              instructions: 'Please review the Terraform plan and approve to proceed.'
+              notifyUsers: |
+                brijesh@gmail.com
+              instructions: 'Please approve to continue deployment'
+              # onTimeout: 'reject'
+  # - stage: Apply
+  #   dependsOn: manualvalidation
+  #   condition: succeeded()
+  #   displayName: Apply
+  #   jobs:            
+  #     - job: apply
+  #       displayName: Terraform Apply
+  #       pool:
+  #         vmImage: 'ubuntu-latest'
+  #       steps:
+  #       - task: TerraformTask@5
+  #         inputs:
+  #           provider: 'azurerm'
+  #           command: 'init'
+  #           workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+  #           backendAzureRmStorageAccountName: 'backendstg12354'
+  #           backendAzureRmContainerName: 'my-container'
+  #           backendAzureRmKey: 'raman-tfstate'
+  #           backendServiceArm: 'application-svc'
+
+  #       - task: TerraformTask@5
+  #         inputs:
+  #           provider: 'azurerm'
+  #           command: 'apply'
+  #           workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+  #           environmentServiceNameAzureRM: 'application-svc'
+              
 
 
 
-            
-            
-   
+
+                  
+                  
+        
