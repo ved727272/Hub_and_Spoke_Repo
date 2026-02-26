@@ -7,7 +7,7 @@ rgs = {
 
 stgs = {
   "stg1" = {
-    name                     = "devstorage12341212"
+    name                     = "devstg7234769"
     resource_group_name      = "dev-todoapp-rg-ci"
     location                 = "Central India"
     account_tier             = "Standard"
@@ -74,7 +74,7 @@ subnets = {
     name                 = "AzureBastionSubnet"
     resource_group_name  = "dev-todoapp-rg-ci"
     virtual_network_name = "hub-vnet"
-    address_prefixes     = ["10.1.4.0/27"]
+    address_prefixes     = ["10.0.3.0/26"]
 }
 }
 subnet_key     = "database"
@@ -85,7 +85,7 @@ kv_id          = "kv1"
 
 sqldb = {
   sql_server1 = {
-    keyvault_name       = "hubspoke-kv"
+    keyvault_name       = "dev-hubspoke-kv"
     resource_group_name = "dev-todoapp-rg-ci"
     sql_username        = "sql-username"
     sql_password        = "sql-password"
@@ -148,7 +148,7 @@ pip = {
 
 keyvault = {
   kv1 = {
-    key_vault_name      = "hubspoke-kv"
+    key_vault_name      = "dev-hubspoke-kv"
     location            = "Central India"
     resource_group_name = "dev-todoapp-rg-ci"
   }
@@ -156,39 +156,39 @@ keyvault = {
 
 kvs = {
   kv1 = {
-    key_vault_name      = "hubspoke-kv"
+    key_vault_name      = "dev-hubspoke-kv"
     resource_group_name = "dev-todoapp-rg-ci"
     secret_user         = "sql-username"
     secret_pass         = "adminuser"
   }
   kv2 = {
-    key_vault_name      = "hubspoke-kv"
+    key_vault_name      = "dev-hubspoke-kv"
     resource_group_name = "dev-todoapp-rg-ci"
     secret_user         = "sql-password"
     secret_pass         = "Samsung@1234"
   }
   kv3 = {
-    key_vault_name      = "hubspoke-kv"
+    key_vault_name      = "dev-hubspoke-kv"
     resource_group_name = "dev-todoapp-rg-ci"
     secret_user         = "fe-vm-user"
     secret_pass         = "adminuser"
   }
 
   kv4 = {
-    key_vault_name      = "hubspoke-kv"
+    key_vault_name      = "dev-hubspoke-kv"
     resource_group_name = "dev-todoapp-rg-ci"
     secret_user         = "be-vm-user"
     secret_pass         = "adminuser"
   }
   kv5 = {
-    key_vault_name      = "hubspoke-kv"
+    key_vault_name      = "dev-hubspoke-kv"
     resource_group_name = "dev-todoapp-rg-ci"
     secret_user         = "fe-vm-pass"
     secret_pass         = "Samsung@1234"
   }
 
   kv6 = {
-    key_vault_name      = "hubspoke-kv"
+    key_vault_name      = "dev-hubspoke-kv"
     resource_group_name = "dev-todoapp-rg-ci"
     secret_user         = "be-vm-pass"
     secret_pass         = "Samsung@1234"
@@ -232,7 +232,7 @@ vms = {
     offer                = "ubuntu-24_04-lts"
     sku                  = "ubuntu-pro-gen1"
     version              = "latest"
-    key_vault_name       = "hubspoke-kv"
+    key_vault_name       = "dev-hubspoke-kv"
     secretu_name         = "fe-vm-user"
     secretp_name         = "fe-vm-pass"
     nic_name             = "nic1"
@@ -252,7 +252,7 @@ vms = {
     offer                = "ubuntu-24_04-lts"
     sku                  = "ubuntu-pro-gen1"
     version              = "latest"
-    key_vault_name       = "hubspoke-kv"
+    key_vault_name       = "dev-hubspoke-kv"
     secretu_name         = "be-vm-user"
     secretp_name         = "be-vm-pass"
     nic_name             = "nic2"
