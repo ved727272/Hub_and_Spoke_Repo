@@ -128,33 +128,37 @@ stages:
                 puneetsharmab@outlook.com
               instructions: 'Please approve to continue deployment'
               onTimeout: 'reject'
-  # - stage: Apply
-  #   dependsOn: manualvalidation
-  #   condition: succeeded()
-  #   displayName: Apply
-  #   jobs:            
-  #     - job: apply
-  #       displayName: Terraform Apply
-  #       pool:
-  #         vmImage: 'ubuntu-latest'
-  #       steps:
-  #       - task: TerraformTask@5
-  #         inputs:
-  #           provider: 'azurerm'
-  #           command: 'init'
-  #           workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
-  #           backendAzureRmStorageAccountName: 'backendstg12354'
-  #           backendAzureRmContainerName: 'my-container'
-  #           backendAzureRmKey: 'raman-tfstate'
-  #           backendServiceArm: 'application-svc'
+  - stage: Apply
+    dependsOn: manualvalidation
+    condition: succeeded()
+    displayName: Apply
+    jobs:            
+      - job: apply
+        displayName: Terraform Apply
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: TerraformInstaller@1
+            displayName: terraform install
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+              backendAzureRmStorageAccountName: 'backendstg12354'
+              backendAzureRmContainerName: 'my-container'
+              backendAzureRmKey: 'raman-tfstate'
+              backendServiceArm: 'application-svc'
 
-  #       - task: TerraformTask@5
-  #         inputs:
-  #           provider: 'azurerm'
-  #           command: 'apply'
-  #           workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
-  #           environmentServiceNameAzureRM: 'application-svc'
-              
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+              environmentServiceNameAzureRM: 'application-svc'
+                
 
 
 
