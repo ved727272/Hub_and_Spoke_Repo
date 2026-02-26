@@ -59,17 +59,17 @@ stages:
               tflint --init
               tflint --recursive
             displayName: Run TFLint
+            workingDirectory: '$(Build.SourcesDirectory)/environments/dev'
+            continueOnError: true
+          - script: |
+              python3 -m venv venv
+              source venv/bin/activate
+              pip install --upgrade pip
+              pip install checkov
+              checkov -d .
             workingDirectory: $(Build.SourcesDirectory)
             continueOnError: true
-          # - script: |
-          #     python3 -m venv venv
-          #     source venv/bin/activate
-          #     pip install --upgrade pip
-          #     pip install checkov
-          #     checkov -d .
-          #   workingDirectory: $(Build.SourcesDirectory)
-          #   continueOnError: true
-          #   displayName: CHECKOV 
+            displayName: CHECKOV 
   - stage: infracost
     dependsOn: tfsecurityscan
     displayName: Infracost Analysis
