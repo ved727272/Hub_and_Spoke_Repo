@@ -4,7 +4,8 @@ trigger:
       - main
 
 pool:
-  name: newpool
+  # name: newpool
+  vmImage: 'ubuntu-latest'
 
 stages:
   - stage: precheck
