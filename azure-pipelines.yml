@@ -114,20 +114,20 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
               environmentServiceNameAzureRM: 'application-svc'
               commandOptions: '-var-file=terraform.tfvars -input=false -lock-timeout=300s'
-  # - stage: manualvalidation
-  #   dependsOn: terraformplan
-  #   displayName: Manual Validation
-  #   jobs:
-  #     - job: manualvalidation
-  #       displayName: manual validation
-  #       pool: server
-  #       steps:
-  #         - task: ManualValidation@1
-  #           inputs:
-  #             notifyUsers: |
-  #               brijesh@gmail.com
-  #             instructions: 'Please approve to continue deployment'
-              # onTimeout: 'reject'
+  - stage: manualvalidation
+    dependsOn: terraformplan
+    displayName: Manual Validation
+    jobs:
+      - job: manualvalidation
+        displayName: manual validation
+        pool: server
+        steps:
+          - task: ManualValidation@1
+            inputs:
+              notifyUsers: |
+                puneetsharmab@outlook.com
+              instructions: 'Please approve to continue deployment'
+              onTimeout: 'reject'
   # - stage: Apply
   #   dependsOn: manualvalidation
   #   condition: succeeded()
