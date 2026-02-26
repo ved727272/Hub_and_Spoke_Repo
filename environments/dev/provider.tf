@@ -23,12 +23,12 @@ terraform {
 
 provider "azurerm" {
   features {
-    key_vault {
-      purge_soft_delete_on_destroy = true
-    }
-    resource_group {
-      prevent_deletion_if_contains_resources = true
-    }
+    # key_vault {
+    #   purge_soft_delete_on_destroy = true
+    # }
+    # resource_group {
+    #   prevent_deletion_if_contains_resources = true
+    # }
   }
   subscription_id = "89ea6cde-b718-4376-9ae5-97e5654340e8"
   # subscription_id = "a952c7be-2375-401d-b046-6b79e69b7bf9"
